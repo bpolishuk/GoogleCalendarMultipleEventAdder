@@ -16,6 +16,8 @@ except ImportError: # py3k
 
 import ttk
 
+root = Tkinter.Tk()
+
 def get_calendar(locale, fwday):
     # instantiate proper calendar class
     if locale is None:
@@ -224,11 +226,10 @@ class Calendar(ttk.Frame):
         return self.datetime(year, month, int(self._selection[0]))
 
 def on_closing():
-    print("Testing")
+    root.destroy()
 
 def test():
     import sys
-    root = Tkinter.Tk()
     root.title('Ttk Calendar')
     ttkcal = Calendar(firstweekday=calendar.SUNDAY)
     ttkcal.pack(expand=1, fill='both')
