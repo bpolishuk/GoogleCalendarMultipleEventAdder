@@ -208,7 +208,7 @@ class Calendar(ttk.Frame):
 
         year, month = self._date.year, self._date.month
         self._date = self._date + self.timedelta(
-            days=calendar.monthrange(year, month)[1] + 1)
+        days=calendar.monthrange(year, month)[1] + 1)
         self._date = self.datetime(self._date.year, self._date.month, 1)
         self._build_calendar() # reconstruct calendar
 
@@ -223,6 +223,9 @@ class Calendar(ttk.Frame):
         year, month = self._date.year, self._date.month
         return self.datetime(year, month, int(self._selection[0]))
 
+def on_closing():
+    print("Testing")
+
 def test():
     import sys
     root = Tkinter.Tk()
@@ -233,13 +236,16 @@ def test():
     if 'win' not in sys.platform:
         style = ttk.Style()
         style.theme_use('clam')
-
+    root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
 
 if __name__ == '__main__':
     f = open('calendar_log.txt', 'w')
-    f.write(sys.argv[1] + '\n')
-    f.write(sys.argv[2] + '\n')
-    f.write(sys.argv[3] + '\n')
+    name = raw_input("Enter the name of the event : ")
+    f.write(name + '\n')
+    start_time = raw_input("Enter the start time of the event as XX:XX : ")
+    f.write(start_time + ':00' + '\n')
+    end_time = raw_input("Enter the end time of the event as XX:XX : ")
+    f.write(end_time + ':00' + '\n')
     f.close();
     test()
